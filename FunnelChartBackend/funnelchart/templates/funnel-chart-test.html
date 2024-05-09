@@ -1,0 +1,25 @@
+<!-- <h2>inside test</h2>
+
+{% for key, value in data.items %}
+
+<h2>{{value}}</h2>
+
+<input type="text" id="age_group" value="{{value}}">
+
+
+{% endfor %} -->
+
+
+{% for key, value in data.items %}
+        <h4>key:{{key}}</h4>
+        <h2>value:{{value}}</h2>
+        {% if key == 'age_group' %}
+            <input type="text" id="age_group" value="{{value}}">
+        {% endif %}
+        {% if key == 'female_population' %}
+            <input type="text" id="female_population" value="{{value}}">
+        {% endif %}
+        {% if key == 'male_population' %}
+            <input type="text" id="male_population" value="{{value}}">
+        {% endif %}
+{% endfor %}

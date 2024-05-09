@@ -1,0 +1,23 @@
+# Back end Packages
+
+Django
+djangorestframework
+markdown
+django-filter
+django-cors-headers
+
+# Front end packages
+# npx create-react-app <frontend>
+# npm install axios - <from front end folder>
+# solve axios issue - npm audit fix --force
+# npm start - to start <frontend>
+# npm install yarn -g
+# npm add recharts
+# To solve Access to XMLHttpRequest at 'http://127.0.0.1:8000/' from origin 'http://localhost:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+# npm install cors --save
+# npm install chart.js 
+# npm install chart.js react-chartjs-2
+# npm install react-funnel
+# npm install react-chartjs-2 chart.js
+# npm install dynamochart
+# npm install xlsx

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Population Chart in Chart JS</title></dbr>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  </head>
+  <body>
+    {% for key, value in data.items %}
+        {% if key == 'age_group' %}
+            <input type="text" id="age_group" value="{{value}}" hidden/>
+        {% endif %}
+        {% if key == 'female_population' %}
+            <input type="text" id="female_population" value="{{value}}" hidden/>
+        {% endif %}
+        {% if key == 'male_population' %}
+            <input type="text" id="male_population" value="{{value}}" hidden/>
+        {% endif %}
+    {% endfor %}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+    
+    
+    <div>
+    <div class="chartCard">
+      <div class="chartBox">
+        <center><p><strong> London Population</strong></p></center></br>
+        <canvas id="myChart"></canvas></br>
+        <center><p> Percentage </strong></p></br>
+      </div>
+      <!-- <center><p> Age Group </strong></p></br> -->
+    </div>
+    </div>
+    <script>
+    var ageData = document.getElementById('age_group').value;
+    var female_population = document.getElementById('female_population').value;
+    var male_population = document.getElementById('male_population').value;
+
+    ageData = ageData.trim();
+    ageData = ageData.slice(1, -1);
+    var ageGroup = ageData.split(",").map(function(item) {
+        return item.trim().replace(/'/g, "");
+    });
+
+    female_population = female_population.trim();
+    female_population = female_population.slice(1, -1);
+    var femaleGroup = female_population.split(",").map(function(item) {
+        return item.trim().replace(/'/g, "");
+    });
+
+    male_population = male_population.trim();
+    male_population = male_population.slice(1, -1);
+    var maleGroup = male_population.split(",").map(function(item) {
+        return item.trim().replace(/'/g, "");
+    });
+
+    ageGroup.reverse();
+    
+
+    const female = femaleGroup;
+    const femalData = [];
+    female.forEach(element => femalData.push(element * -1));
+    const data = {
+      labels: ageGroup,
+      datasets: [{
+        label: 'Male',
+        data: maleGroup, 
+        backgroundColor:'rgba(54, 162, 235, 1)',
+        borderColor: 'rgba(0, 0, 0, 1)',
+        outerWidth:.5,
+        outerHeight:1,
+        borderWidth: 1,
+        borderRadius: 5,
+      }, 
+      {
+        label: 'Female',
+        data: femalData,
+        backgroundColor:'rgba(255, 26, 104, 1)',
+        borderColor: 'rgba(0, 0, 0, 1)',
+        borderWidth: 1,
+        borderRadius: 5,
+      }]
+    };
+
+    const tooltip = {
+        yAlign: 'bottom',
+        titleAlign: 'center',
+        callbacks:{
+                label:function(context){
+                    return `${context.dataset.label} ${Math.abs(context.raw)}`; 
+                }
+        }
+    };
+    
+    const config = {
+      type: 'bar',
+      data,
+      options: {
+       barPercentage: 1,
+       categoryPercentage: 1,
+       indexAxis: 'y', 
+        scales: {
+          x:{
+            stacked:true,
+            ticks:{
+                callback: function(value, index, values){
+                    return Math.abs(value);
+                }
+            }
+            
+          },
+          y: {
+            beginAtZero: true,
+            stacked:true,
+          },
+        },
+        plugins:{
+            tooltip:tooltip
+          },
+      }
+    };
+
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+    </script>
+
+  </body>
+</html>
